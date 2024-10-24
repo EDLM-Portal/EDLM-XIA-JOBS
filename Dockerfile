@@ -1,6 +1,6 @@
 # Dockerfile
 
-FROM python:3.7-buster
+FROM python:3.9-buster
 
 # install nginx
 RUN apt-get update && apt-get install nginx vim libxml2-dev libxmlsec1-dev clamav-daemon clamav-freshclam clamav-unofficial-sigs -y --no-install-recommends && \
@@ -15,15 +15,15 @@ RUN chmod a=rwx /etc/debug.log
 # copy source and install dependencies
 RUN mkdir -p /opt/app
 RUN mkdir -p /opt/app/pip_cache
-RUN mkdir -p /opt/app/openlxp-xia-moodle
+RUN mkdir -p /opt/app/edlm-xia-jobs
 COPY requirements.txt start-server.sh start-app.sh /opt/app/
 RUN chmod +x /opt/app/start-server.sh
 RUN chmod +x /opt/app/start-app.sh
-COPY ./app /opt/app/openlxp-xia-moodle/
+COPY ./app /opt/app/edlm-xia-jobs/
 WORKDIR /opt/app
 RUN pip install -r requirements.txt --cache-dir /opt/app/pip_cache
 RUN chown -R www-data:www-data /opt/app
-WORKDIR /opt/app/openlxp-xia-moodle/
+WORKDIR /opt/app/edlm-xia-jobs/
 
 # start server
 EXPOSE 8020

@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "template_type": "edlm-status-update",
-        "message": "Hi {name:} !!<br></br><br></br>\r\n \r\nWe wanted to let you know there’s a status update in the Enterprise Course Catalog (ECC) as of {datetime:} in the component you manage. Since you’re a Point of Contact for ECC, we’re keeping you in the loop.<br></br><br></br>\r\n \r\nPlease check the EDLM ECC logs for details 📋.<br></br><br></br>\r\n \r\nThanks for your support!<br></br>\r\n \r\nThe EDLM Team",
+        "message": "Hi {name:} !!<br></br><br></br>\r\n \r\nWe wanted to let you know there’s a status update in the EDLM Jobs XIA as of {datetime:} in the component you manage. Since you’re a Point of Contact for EDLM Jobs XIA, we’re keeping you in the loop.<br></br><br></br>\r\n \r\nPlease check the EDLM Jobs XIA logs for details 📋.<br></br><br></br>\r\n \r\nThanks for your support!<br></br>\r\n \r\nThe EDLM Team",
         "template_inputs": null
     }
 }

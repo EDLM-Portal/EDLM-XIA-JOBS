@@ -3,8 +3,8 @@ import os
 from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'openlxp_xia_moodle_project.settings')
+                      'edlm_xia_jobs_project.settings')
 
-app = Celery('openlxp_xia_moodle_project')
+app = Celery('edlm_xia_jobs_project')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()

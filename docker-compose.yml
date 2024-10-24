@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  db_xia_moodle:
+  db_xia_jobs:
     image: mysql:8.0.36
     ports:
       - '3306:3306'
@@ -13,7 +13,7 @@ services:
     networks:
       - openlxp
 
-  app_xia_moodle:
+  app_xia_jobs:
     build:
       context: .
     ports:
@@ -21,24 +21,26 @@ services:
     command: >
       sh -c ". /opt/app/start-app.sh"
     environment:
-      DB_NAME: "${DB_NAME}"
-      DB_USER: "${DB_USER}"
-      DB_PASSWORD: "${DB_PASSWORD}"
-      DB_HOST: "${DB_HOST}"
-      DJANGO_SUPERUSER_USERNAME: "${DJANGO_SUPERUSER_USERNAME}"
-      DJANGO_SUPERUSER_PASSWORD: "${DJANGO_SUPERUSER_PASSWORD}"
-      DJANGO_SUPERUSER_EMAIL: "${DJANGO_SUPERUSER_EMAIL}"
-      BUCKET_NAME: "${BUCKET_NAME}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
-      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
-      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+      CELERY_BROKER_URL: "${CELERY_BROKER_URL}"
+      CSRF_COOKIE_DOMAIN: "${CSRF_COOKIE_DOMAIN}"
+      CSRF_TRUSTED_ORIGINS: "${CSRF_TRUSTED_ORIGINS}"
+      DB_HOST: "${DB_HOST}"
+      DB_NAME: "${DB_NAME}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      DB_USER: "${DB_USER}"
+      DJANGO_SUPERUSER_USERNAME: "${DJANGO_SUPERUSER_USERNAME}"
+      DJANGO_SUPERUSER_PASSWORD: "${DJANGO_SUPERUSER_PASSWORD}"
+      DJANGO_SUPERUSER_EMAIL: "${DJANGO_SUPERUSER_EMAIL}"
+      LOG_PATH: "${LOG_PATH}"
       SECRET_KEY_VAL: "${SECRET_KEY_VAL}"
     volumes:
-      - ./app:/opt/app/openlxp-xia-moodle
+      - ./app:/opt/app/edlm-xia-jobs
     depends_on:
-      - db_xia_moodle
+      - db_xia_jobs
     networks:
       - openlxp
 
@@ -50,18 +52,18 @@ services:
   celery:
     build:
       context: .
-    command: celery -A openlxp_xia_moodle_project worker -l info --pool=solo
+    command: celery -A edlm_xia_jobs_project worker -l info --pool=solo
     volumes:
-      - ./app:/opt/app/openlxp-xia-moodle
+      - ./app:/opt/app/edlm-xia-jobs
     environment:
       REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
       AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
     env_file:
       - ./.env
     depends_on:
-      - db_xia_moodle
+      - db_xia_jobs
       - redis
-      - app_xia_moodle
+      - app_xia_jobs
     networks:
       - openlxp
     restart: on-failure
@@ -69,18 +71,18 @@ services:
   celery-beat:
     build:
       context: .
-    command: celery -A openlxp_xia_moodle_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
+    command: celery -A edlm_xia_jobs_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
     volumes:
-      - ./app:/opt/app/openlxp-xia-moodle
+      - ./app:/opt/app/edlm-xia-jobs
     environment:
       REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
       AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
     env_file:
       - ./.env
     depends_on:
-      - db_xia_moodle
+      - db_xia_jobs
       - redis
-      - app_xia_moodle
+      - app_xia_jobs
     networks:
       - openlxp
     restart: on-failure

@@ -12,6 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'openlxp_xia_moodle_project.settings')
+                      'edlm_xia_jobs_project.settings')
 
 application = get_wsgi_application()

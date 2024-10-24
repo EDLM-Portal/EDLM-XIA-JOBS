@@ -3,7 +3,7 @@
     "model": "openlxp_notifications.subject",
     "pk": 1,
     "fields": {
-        "subject": "OpenLXP Conformance Alerts"
+        "subject": "EDLM Conformance Alerts"
     }
 }
 ]
