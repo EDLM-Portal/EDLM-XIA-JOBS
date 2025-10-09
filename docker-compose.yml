@@ -47,43 +47,43 @@ services:
     networks:
       - openlxp
       
-  celery:
-    build:
-      context: .
-    command: celery -A edlm_xia_jobs_project worker -l info --pool=solo
-    volumes:
-      - ./app:/opt/app/edlm-xia-jobs
-    environment:
-      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
-      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
-    env_file:
-      - ./.env
-    depends_on:
-      - db_xia_jobs
-      - redis
-      - app_xia_jobs
-    networks:
-      - openlxp
-    restart: on-failure
+  # celery:
+  #   build:
+  #     context: .
+  #   command: celery -A edlm_xia_jobs_project worker -l info --pool=solo
+  #   volumes:
+  #     - ./app:/opt/app/edlm-xia-jobs
+  #   environment:
+  #     REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+  #     AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - db_xia_jobs
+  #     - redis
+  #     - app_xia_jobs
+  #   networks:
+  #     - openlxp
+  #   restart: on-failure
 
-  celery-beat:
-    build:
-      context: .
-    command: celery -A edlm_xia_jobs_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
-    volumes:
-      - ./app:/opt/app/edlm-xia-jobs
-    environment:
-      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
-      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
-    env_file:
-      - ./.env
-    depends_on:
-      - db_xia_jobs
-      - redis
-      - app_xia_jobs
-    networks:
-      - openlxp
-    restart: on-failure
+  # celery-beat:
+  #   build:
+  #     context: .
+  #   command: celery -A edlm_xia_jobs_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
+  #   volumes:
+  #     - ./app:/opt/app/edlm-xia-jobs
+  #   environment:
+  #     REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+  #     AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.crt'
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - db_xia_jobs
+    #   - redis
+    #   - app_xia_jobs
+    # networks:
+    #   - openlxp
+    # restart: on-failure
 
 #  flower:
 #    image: mher/flower:0.9.7

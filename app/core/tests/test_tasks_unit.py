@@ -15,12 +15,12 @@ class TasksTests(TestSetUp):
     @patch("core.tasks.execute_xia_automated_workflow.run")
     def test_execute_xia_automated_workflow(self, mock_run):
         """Testing the working of xia workflow celery task queue"""
-        self.assert_(execute_xia_automated_workflow.run())
+        self.assertTrue(execute_xia_automated_workflow.run())
 
-        self.assert_(execute_xia_automated_workflow.run())
+        self.assertTrue(execute_xia_automated_workflow.run())
         self.assertEqual(mock_run.call_count, 2)
 
-        self.assert_(execute_xia_automated_workflow.run())
+        self.assertTrue(execute_xia_automated_workflow.run())
         self.assertEqual(mock_run.call_count, 3)
 
     def test_check_calls_xia_workflow(self):

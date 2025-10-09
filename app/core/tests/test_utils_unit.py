@@ -180,7 +180,7 @@ class UtilsTests(TestSetUp):
             'key_value_hash': second_value
         }
         result = get_key_dict(first_value, second_value)
-        self.assertEquals(result, expected_result)
+        self.assertEqual(result, expected_result)
 
     @data((1, False), ("1990-12-1", True), ("Monday at 12:01am", True))
     @unpack
