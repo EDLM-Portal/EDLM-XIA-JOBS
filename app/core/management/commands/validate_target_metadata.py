@@ -65,11 +65,12 @@ def store_target_metadata_validation_status(target_data_dict, key_value_hash,
             record_lifecycle_status=record_status_result,
             metadata_record_inactivation_date=timezone.now())
 
-def logging_required_recommended(*, validation_result,
+def logging_required_recommended(validation_result,
                                  record_status_result,
                                  required_column_list,
                                  recommended_column_list,
-                                 flattened_source_data, ind):
+                                 flattened_source_data, 
+                                 ind):
     """ Logging required recommended"""
     # validate for required values in data
     for item_name in required_column_list:
@@ -124,8 +125,8 @@ def validate_target_using_key(target_data_dict, required_column_list,
     index = 0
     for target_data in target_data_dict:
         # Updating default validation for all records
-        # validation_result = 'Y'
-        # record_status_result = 'Active'
+        validation_result = 'Y'
+        record_status_result = 'Active'
 
         # flattened source data created for reference
         flattened_source_data = dict_flatten(target_data
@@ -133,12 +134,12 @@ def validate_target_using_key(target_data_dict, required_column_list,
                                              required_column_list)
         # Logging required recommended
         validation_result, record_status_result = \
-            logging_required_recommended(validation_result = 'Y',
-                                         record_status_result = 'Active',
-                                         required_column_list = required_column_list,
-                                         recommended_column_list = recommended_column_list,
-                                         flattened_source_data = flattened_source_data, 
-                                         index = index)
+            logging_required_recommended(validation_result,
+                                         record_status_result,
+                                         required_column_list,
+                                         recommended_column_list,
+                                         flattened_source_data, 
+                                         ind = index)
         # Type checking for values in metadata
         for item in flattened_source_data:
 
