@@ -70,7 +70,7 @@ def logging_required_recommended(validation_result,
                                  required_column_list,
                                  recommended_column_list,
                                  flattened_source_data,
-                                 *, 
+                                 *,
                                  ind):
     """ Logging required recommended"""
     # validate for required values in data
@@ -139,7 +139,7 @@ def validate_target_using_key(target_data_dict, required_column_list,
                                          record_status_result,
                                          required_column_list,
                                          recommended_column_list,
-                                         flattened_source_data, 
+                                         flattened_source_data,
                                          ind=index)
         # Type checking for values in metadata
         for item in flattened_source_data:
