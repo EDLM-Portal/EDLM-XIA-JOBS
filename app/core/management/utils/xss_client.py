@@ -26,14 +26,14 @@ def read_json_data(source_schema_ref, target_schema_ref=None):
             request_path += '&sourceIRI=' + source_schema_ref
         else:
             request_path += '&sourceName=' + source_schema_ref
-        schema = requests.get(request_path)
+        schema = requests.get(request_path, timeout=120)
         json_content = schema.json()['schema_mapping']
     else:
         if(source_schema_ref.startswith('xss:')):
             request_path += 'schemas/?iri=' + source_schema_ref
         else:
             request_path += 'schemas/?name=' + source_schema_ref
-        schema = requests.get(request_path)
+        schema = requests.get(request_path, timeout=120)
         json_content = schema.json()['schema']
     return json_content
 
