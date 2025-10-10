@@ -457,11 +457,11 @@ class CommandTests(TestSetUp):
             xisCfg.first.return_value = xiaConfig
             return_data = rename_metadata_ledger_fields(self.xia_data)
 
-            self.assertEquals(self.xis_expected_data['metadata_key'],
+            self.assertEqual(self.xis_expected_data['metadata_key'],
                               return_data['vacancy_key'])
-            self.assertEquals(self.xis_expected_data['metadata_key_hash'],
+            self.assertEqual(self.xis_expected_data['metadata_key_hash'],
                               return_data['vacancy_key_hash'])
-            self.assertEquals(self.xis_expected_data['provider_name'],
+            self.assertEqual(self.xis_expected_data['provider_name'],
                               return_data['ProviderName'])
 
     def test_get_records_to_load_into_xis_one_record(self):

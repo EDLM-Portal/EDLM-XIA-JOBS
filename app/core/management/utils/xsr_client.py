@@ -32,7 +32,7 @@ def get_xsr_api_response(xsr_obj, endpoint):
 
     # creating HTTP response object from given url
     try:
-        resp = requests.get(url, headers=headers)
+        resp = requests.get(url, headers=headers, timeout=120)
     except requests.exceptions.RequestException as e:
         logger.error(e)
         raise SystemExit('Exiting! Can not make connection with XSR.')

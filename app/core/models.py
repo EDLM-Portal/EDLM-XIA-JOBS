@@ -86,7 +86,7 @@ class XIAConfiguration(TimeStampedModel):
         else:
             request_path += 'schemas/?name=' + self.target_metadata_schema
             conf += 'mappings/?targetName=' + self.target_metadata_schema
-        schema = requests.get(request_path)
+        schema = requests.get(request_path, timeout=120)
         target = schema.json()['schema']
 
         # Read json file and store as a dictionary for processing
@@ -95,7 +95,7 @@ class XIAConfiguration(TimeStampedModel):
             request_path += '&sourceIRI=' + self.source_metadata_schema
         else:
             request_path += '&sourceName=' + self.source_metadata_schema
-        schema = requests.get(request_path)
+        schema = requests.get(request_path, timeout=120)
         mapping = schema.json()['schema_mapping']
 
         return target, mapping

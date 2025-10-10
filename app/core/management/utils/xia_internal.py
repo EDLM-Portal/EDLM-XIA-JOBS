@@ -1,7 +1,8 @@
 import datetime
 import hashlib
 import logging
-from distutils.util import strtobool
+# from distutils.util import strtobool
+from str2bool import str2bool
 
 from core.models import XIAConfiguration
 from dateutil.parser import parse
@@ -177,7 +178,7 @@ def type_cast_overwritten_values(field_type, field_value):
 
         elif field_type == "bool":
             try:
-                value = strtobool(field_value)
+                value = str2bool(field_value)
             except Exception as e: # pylint: disable=broad-except
                 logger.error(e)
 

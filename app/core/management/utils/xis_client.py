@@ -23,7 +23,7 @@ def posting_metadata_ledger_to_xis(renamed_data):
 
     xis_response = requests.post(url=get_xis_metadata_api_endpoint(),
                                  data=renamed_data, headers=headers,
-                                 auth=TokenAuth())
+                                 auth=TokenAuth(), timeout=120)
     return xis_response
 
 

@@ -39,7 +39,7 @@ def get_eccr_uuid(code):
     headers = {}
 
     response = requests.request("POST", url, headers=headers, data=payload,
-                                files=files)
+                                files=files, timeout=120)
 
     job_resp = {'job': {
                         'reference': "",
